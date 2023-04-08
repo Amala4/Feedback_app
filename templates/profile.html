@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+<!-- Page Title -->
+{% block title %} Feedback - Profile {% endblock %}
+
+
+<!-- Page content -->
+{% block content %}
+
+<div class="container">
+  <!-- Response modal start -->
+  {% if responses %}        
+  {% for response in responses %}
+  <div class="modal fade" id="response{{response.id |slugify}}" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="loginform bg-dark">
+                <div class="top-streamers">
+                  <div class="heading-section">
+                    {% if "private" in response.purpose %}
+                    <h6><em>What do you like most</em> about me?</h6>
+                    {% else %}
+                    <h6><em>Are you happy with</em> my services?</h6>
+                    {% endif %}
+                  </div>
+                  <p style="text-align: justify; text-justify: inter-word;">{{response.message}}</p>
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  <!-- Response modal end -->
+
+
+  <!-- LoadMore modal start -->
+  <div class="modal fade" id="loadMore" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="loginform bg-dark">
+                <div class="top-streamers">
+                  <div class="heading-section">
+                    <h6><span>&#9989;</span><em> More</em>Responses! </h6>
+                  </div>
+                  <p style="text-align: justify; text-justify: inter-word;">It is great that you have taken this journey of self improvement to get people's raw feedback about you, so as to become a better person.
+                    To view the complete responses, we ask for a small fee of just &#8358;485
+                  </p>
+                  <h6><em>Why should you go ahead?</em></h6>
+                  <p style="text-align: justify; text-justify: inter-word;">It is cheap, it is safe, secure and you get the complete opinion of your friends about you or your business.
+                  </p>
+                  <div class="stayRight"><button type="submit" class="btn btn-light mb-3 mt-3">Continue</button></div>
+
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- LoadMore modal end -->
+
+    <div class="row">
+      <div class="col-lg-12">
+        
+        <div class="page-content">
+          <h4  style="text-align: center; color:#63b741; margin-bottom: 30px;">Start getting feedbacks right away!</h4>
+
+
+          <!-- ***** URL section Start ***** -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="main-profile ">
+                <div class="row">
+                  <div class="col-lg-4 align-self-center">
+                    <div class="main-info header-text">
+                      <h4 style="color:rgb(187, 192, 194);" >Personal</h4>
+                      <p style="text-align: justify; text-justify: inter-word; color:rgb(137, 157, 163);">Copy your personal link below and share to your friends, family and on social media platforms, to get personal feedback about you. Copy the link below </p>
+                      
+                      <p id="copyPersonal-tooltip" style="display: none; background:none; text-align:end; color:rgb(245, 247, 247);">Copied!</p>
+                      
+                      <div class="input-group mt-3 mb-3 ">
+                        <input type="text" class="form-control " style="font-size: 14px; border-style:solid; border-color: black; background: black; color: #ba617f ; " id="linkPrivate" value={{personal_url}} disabled readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="linkCopyPrivate">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 align-self-center">
+                    <div class="main-info header-text">
+                      <h4 style="color:rgb(187, 192, 194);">Business</h4>
+                      <p style="text-align: justify; text-justify: inter-word; color:rgb(137, 157, 163);">Copy your business link below and share to your customers across your social media platforms, to get feedback about your business. Copy the link below</p>
+                      
+                      <p id="copyBusiness-tooltip" style="display: none; background:none; text-align:end; color:rgb(245, 247, 247);">Copied!</p>
+
+                      <div class="input-group mt-3 mb-3 ">
+                        {% csrf_token %}
+                        <input type="text" class="form-control " style="font-size: 14px; border-style:solid; border-color: black; background: black; color: #ba617f ;" id="linkBusiness" value={{business_url}} disabled readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="linkCopyBusiness">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 align-self-center">
+                    <ul>
+                      <li>Feedback Statistics <span></span></li>
+                      <li>Personal <span>{{personal |intcomma}}</span></li>
+                      <li>Business <span>{{business |intcomma}}</span></li>
+                      <li>Total Number of responses <span>{{total |intcomma}}</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ***** URL section End ***** -->
+
+
+          <!-- ***** Responses Start ***** -->
+          <div class="gaming-library profile-library">
+            
+            <div class="col-lg-12">
+              <div class="heading-section">
+                <h4><em>Find Your Responses</em> Below</h4>
+              </div>
+
+              {% if responses %}        
+              {% for response in responses %}
+              <div class="col-lg-12">
+                <div class="item">
+                  <p style="text-align: justify; text-justify: inter-word;">{{response.message}}</p>
+                  <div class="main-border-button2" style="text-align: end; color:#e75e8d;"><a data-bs-toggle="modal" data-bs-target="#response{{response.id |slugify}}">View</a></div>
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="col-lg-12">
+                <div class="item">
+                  <p style="text-align: justify; text-justify: inter-word; display: inline-block;">You have no responses yet. Keep sharing your personal link to more people.</p>
+                </div>
+              </div>
+              {% endif %}
+
+              <!-- <div class="main-border-button" style="text-align: center; color:#e75e8d;">
+                <a data-bs-toggle="modal" data-bs-target="#loadMore">Load More Responses</a>
+              </div> -->
+            </div>
+          </div>
+          <!-- ***** Responses End ***** -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+{% endblock %}

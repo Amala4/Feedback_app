@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title %} Feedback - Home {% endblock %}
+
+
+<!-- Page content -->
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+          <!-- Alerts -->
+          {% include 'alert.html' %}
+          <!-- ***** Banner Start ***** -->
+          <div class="main-banner">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="header-text">
+                  <h6>Welcome To AFSI</h6>
+                  <h4><em>The best</em> anonymous messaging <em>plaform</em></h4>
+                  <div class="main-button">
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'profile' %}">Get Started</a>
+                    {% else %}
+                      <a data-bs-toggle="modal" data-bs-target="#SignupModal" >Get Started</a>
+                    {% endif %}
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ***** Banner End ***** -->
+
+          <!-- ***** Benefits Start ***** -->
+          <div class="start-stream">
+            <div class="col-lg-12">
+              <div class="heading-section">
+                <h4><em>Benefits of</em> AFSI</h4>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="item">
+                    <div class="icon">
+                      <img src="{% static 'assets/images/service-03.svg' %}" alt="" style="background: white; max-width: 60px; border-radius: 50%;">
+                    </div>
+                    <h4>Anonymity</h4>
+                    <p style="text-align: justify; text-justify: inter-word;">The messages you receive are completely Anonymous. When people stay anonymous, they give their true opinions without fear. You deserve the truth!</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="item">
+                    <div class="icon">
+                      <img src="{% static 'assets/images/service-01.svg' %}" alt="" style="background: white; max-width: 60px; border-radius: 50%;">
+                    </div>
+                    <h4>Personal</h4>
+                    <p style="text-align: justify; text-justify: inter-word;">Get raw and unbiased feedback from your friends about you. It's anonymous, hence you get their true opinions. Have you been a good friend? Let's find out. </p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="item">
+                    <div class="icon">
+                      <img src="{% static 'assets/images/service-02.svg' %}" alt="" style="background: white; max-width: 60px; border-radius: 50%;">
+                    </div>
+                    <h4>Business</h4>
+                    <p style="text-align: justify; text-justify: inter-word;">Get honest feedback from your customers about your services. Discover strategies that do not work. Are your customers truly satisfied? Let's find out.</p>
+                  </div>
+                </div>
+                
+                <div class="col-lg-12">
+                  <div class="main-button">
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'profile' %}">Get Started right away</a>
+                    {% else %}
+                    <a data-bs-toggle="modal" data-bs-target="#SignupModal">Get Started right away</a>
+                    {% endif %}
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ***** Benefits End ***** -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+       
