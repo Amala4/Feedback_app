@@ -6,8 +6,7 @@ $(document).ready(function() {
     loginUser()
     copyPrivate()
     copyBusiness()
-    editPersonalQuestion()
-    editBusinessQuestion()
+    
 
     function registerUser(){
         $('#register').click(function(event) {
@@ -43,7 +42,7 @@ $(document).ready(function() {
                         setTimeout(function(){
                             window.location.href = profileUrl;
 
-                        }, 1000);
+                        }, 2);
                         
                         }
                     
@@ -108,7 +107,7 @@ $(document).ready(function() {
                         setTimeout(function(){
                             window.location.href = profileUrl;
 
-                        }, 1000);
+                        }, 2);
                         }
                     
                     else if (username_status == 'False'){
@@ -135,10 +134,8 @@ $(document).ready(function() {
         $('#linkCopyPrivate').click(function(event) {
             event. preventDefault()
             var link = $("#linkPrivate").val();
-            var message = $("#personal-question").text();
-            var truncatedMessage = message.split(' ').slice(1).join(' ')
-            var finalMessage =truncatedMessage+ "\n" +"Write me an anonymous message"+"\n";
-            var finalString = finalMessage.concat(link);
+            var message = "What exactly do you like about me? send me an anonymous message \n";
+            var finalString = message.concat(link);
 
             navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
                 if (result.state == "granted" || result.state == "prompt") {
@@ -193,11 +190,8 @@ $(document).ready(function() {
         $('#linkCopyBusiness').click(function(event) {
             event. preventDefault()
             var link = $("#linkBusiness").val();
-            var message = $("#business-question").text();
-            var truncatedMessage = message.substr(message.indexOf(" ") + 1);
-            var finalMessage =truncatedMessage+ "\n"+"Write us anonymous feedback"+"\n";
-            var finalString = finalMessage.concat(link);
-
+            var message = "Are you happy with my services? please write me an anonymous review \n";
+            var finalString = message.concat(link);
 
             navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
                 if (result.state == "granted" || result.state == "prompt") {
@@ -247,73 +241,4 @@ $(document).ready(function() {
         });
     }
   
-
-    function editPersonalQuestion(){
-        $('#savePersQuestion').click(function(event) {
-            event. preventDefault()
-            var persQuestion = $("#personalQuestionModalText").val();
-            var saveUrl = $(this).attr("data-url") ;
-
-            
-            if (persQuestion.length == 0){
-                alert("question cannot be empty");
-                return
-            }
-
-            $.ajax({
-                'method': 'GET',  
-                'url': saveUrl,
-                'data': {"persQuestion": persQuestion,
-                        "type": "personal",
-                        },  
-                success: function(dataReturned) {
-                    var saved = dataReturned['saved']
-                    if (saved == 'True'){
-                        $('#PersoanlQUestionModal').modal('toggle');
-                        $('#personal-question').text("Question: "+persQuestion+"?");
-                        
-                        }
-                  
-                }
-            });
-    
-            
-        });
-    }
-
-   
-
-    function editBusinessQuestion(){
-        $('#saveBusQuestion').click(function(event) {
-            event. preventDefault()
-            var busQuestion = $("#businessQuestionModalText").val();
-            var saveUrl = $(this).attr("data-url") ;
-
-            
-            if (busQuestion.length == 0){
-                alert("question cannot be empty");
-                return
-            }
-
-            $.ajax({
-                'method': 'GET',  
-                'url': saveUrl,
-                'data': {"busQuestion": busQuestion,
-                        "type": "business",
-                        },  
-                success: function(dataReturned) {
-                    var saved = dataReturned['saved']
-                    if (saved == 'True'){
-                        $('#BusinessQUestionModal').modal('toggle');
-                        $('#business-question').text("Question: "+busQuestion+"?");
-                        
-                        }
-                  
-                }
-            });
-    
-            
-        });
-    }
-
 });

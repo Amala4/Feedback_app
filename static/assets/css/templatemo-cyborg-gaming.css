@@ -131,6 +131,7 @@ body .page-content {
   margin-top: 110px;
   background-color: #27292a;
   padding: 60px;
+  padding-top: 30px;
   border-radius: 23px;
 }
 
@@ -154,6 +155,29 @@ p {
 .templatemo-item {
 	max-width: 80px; 
 	border-radius: 23px;
+}
+
+.link-copy-input {
+  font-size: 14px;
+  background-color: #111111;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  
+}
+.link-copy-input:focus{border-color: #e75e8d;  box-shadow: none; -webkit-box-shadow: none;}
+.link-copy button {
+  font-size: 14px;
+  color: #e75e8d;
+  background-color: #111111;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
 }
 
 .main-button a {
@@ -183,9 +207,8 @@ p {
   border: 1px solid #ec6090;
   padding: 12px 30px;
   display: inline-block;
-  border-radius: 25px;
+  border-radius: 10px;
   font-weight: 400;
-  text-transform: capitalize;
   letter-spacing: 0.5px;
   transition: all .3s;
   position: relative;
@@ -196,8 +219,31 @@ p {
   border-color: #fff;
   background-color: #fff;
   color: #e75e8d;
+  cursor: pointer;
 }
 
+
+.main-border-button2 a {
+  font-size: 14px;
+  color: #ec6090;
+  background-color: transparent;
+  border: 1px solid #ec6090;
+  padding: 5px 5px;
+  display: inline-block;
+  border-radius: 10px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-border-button2 a:hover {
+  border-color: #fff;
+  background-color: #fff;
+  color: #e75e8d;
+  cursor: pointer;
+}
 .border-no-active a {
   border-color: #666;
   color: #666;
@@ -220,12 +266,25 @@ section {
   margin-bottom: 30px;
 }
 
+
 .heading-section h4 em {
   color: #fff;
   font-style: normal;
   text-decoration: underline;
 }
 
+.heading-section h6 {
+  color: #ec6090;
+  font-size: 20px;
+  text-decoration: none;
+  margin-bottom: 30px;
+}
+
+.heading-section h6 em {
+  color: #fff;
+  font-style: normal;
+  text-decoration: underline;
+}
 /* 
 ---------------------------------------------
 Pre-loader Style
@@ -907,7 +966,7 @@ Gaming Library Style
 
 .gaming-library .item ul li {
   display: inline-block;
-  width: 17%;
+  width: 70%;
 }
 
 .gaming-library .item ul li:first-child {
@@ -1461,7 +1520,7 @@ Top Streamers Style
   background-color: #1f2122;
   padding: 30px;
   max-height: 567px;
-  min-height: 567px;
+  min-height: 57px;
 }
 
 .top-streamers ul li {

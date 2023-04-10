@@ -10,7 +10,7 @@
 
 <div class="container">
   <!-- Response modal start -->
-  {% if responses %}        
+  {% if responses %}
   {% for response in responses %}
   <div class="modal fade" id="response{{response.id |slugify}}" tabindex="-1"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
@@ -21,12 +21,15 @@
                 <div class="top-streamers">
                   <div class="heading-section">
                     {% if "private" in response.purpose %}
-                    <h6><em>What do you like most</em> about me?</h6>
+                    <!--<h6><em>{{firstPartOfWordsPers}}</em> {{lastTwoWordsPers}}?</h6>-->
+                    <h6><em></em>{{response.personal_question}}?</h6>
                     {% else %}
-                    <h6><em>Are you happy with</em> my services?</h6>
+                    <!--<h6><em>{{firstPartOfWordsBus}}</em> {{lastTwoWordsBus}}?</h6>-->
+                    <h6><em></em>{{response.business_question}}?</h6>
                     {% endif %}
+                    <hr style="color:#505152;">
                   </div>
-                  <p style="text-align: justify; text-justify: inter-word;">{{response.message}}</p>
+                  <p style="text-align: justify; text-justify: inter-word; color:rgb(239, 246, 249);">{{response.message}}</p>
                 </div>
               </div>
             </div>
@@ -69,9 +72,57 @@
   </div>
   <!-- LoadMore modal end -->
 
+  <!-- Personal question modal start -->
+  <div class="modal fade" id="PersoanlQUestionModal" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="loginform bg-dark">
+                <form action=""  method ="GET">
+                  {% csrf_token %}
+                    <div class="mb-3 mt-4">
+                      <label for="email" class="form-label">Question:</label>
+                      <textarea type="text" class="form-control" id="personalQuestionModalText"  name="personalQuestionModal" style="color: black;">{{personal_question}}</textarea>
+                    </div>
+
+                    <div class="stayRight"><button type="submit" id="savePersQuestion" class="btn btn-light mb-3 mt-3" data-url="{% url 'savequestion' %}"><p style="color: black;">Save</p></button></div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Personal question modal end -->
+
+
+
+  <!-- Business question modal start -->
+  <div class="modal fade" id="BusinessQUestionModal" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="loginform bg-dark">
+                <form action=""  method ="GET">
+                  {% csrf_token %}
+                    <div class="mb-3 mt-4">
+                      <label for="text" class="form-label">Question:</label>
+                      <textarea type="text" class="form-control" id="businessQuestionModalText" name="businessQuestionModal" style="color: black;">{{business_question}}</textarea>
+                    </div>
+
+                    <div class="stayRight"><button id="saveBusQuestion" type="submit" class="btn btn-light mb-3 mt-3" data-url="{% url 'savequestion' %}"><p style="color: black;">Save</p></button></div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Business question modal end -->
+
     <div class="row">
       <div class="col-lg-12">
-        
+
         <div class="page-content">
           <h4  style="text-align: center; color:#63b741; margin-bottom: 30px;">Start getting feedbacks right away!</h4>
 
@@ -81,34 +132,42 @@
             <div class="col-lg-12">
               <div class="main-profile ">
                 <div class="row">
-                  <div class="col-lg-4 align-self-center">
-                    <div class="main-info header-text">
+                  <div class="col-lg-4 align-self-center" style="margin-bottom: 30px;">
+                    <div class="main-info ">
                       <h4 style="color:rgb(187, 192, 194);" >Personal</h4>
                       <p style="text-align: justify; text-justify: inter-word; color:rgb(137, 157, 163);">Copy your personal link below and share to your friends, family and on social media platforms, to get personal feedback about you. Copy the link below </p>
-                      
-                      <p id="copyPersonal-tooltip" style="display: none; background:none; text-align:end; color:rgb(245, 247, 247);">Copied!</p>
-                      
-                      <div class="input-group mt-3 mb-3 ">
+
+                      <div>
+                        <p id="personal-question" style="text-align:start; color:rgb(125, 139, 244); font-size: 12px;">Question: {{personal_question}}? </p>
+                        <a class="mb-3" id="editPersonalQuestion" style="float: right; text-align:end; color:#ba617f; font-size: 12px; font-style:normal; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#PersoanlQUestionModal">Edit question</a>
+                      </div>
+                      <p id="copyPersonal-tooltip" style="display: none; background:none; text-align:start; color:rgb(245, 247, 247);">Copied!</p>
+
+                      <div class="input-group mt-3 mb-1 ">
                         <input type="text" class="form-control " style="font-size: 14px; border-style:solid; border-color: black; background: black; color: #ba617f ; " id="linkPrivate" value={{personal_url}} disabled readonly>
                         <button class="btn btn-outline-secondary" type="button" id="linkCopyPrivate">Copy</button>
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 align-self-center">
+
+                  <div class="col-lg-4 align-self-center" style="margin-bottom: 30px;">
                     <div class="main-info header-text">
                       <h4 style="color:rgb(187, 192, 194);">Business</h4>
                       <p style="text-align: justify; text-justify: inter-word; color:rgb(137, 157, 163);">Copy your business link below and share to your customers across your social media platforms, to get feedback about your business. Copy the link below</p>
-                      
-                      <p id="copyBusiness-tooltip" style="display: none; background:none; text-align:end; color:rgb(245, 247, 247);">Copied!</p>
+                        <div >
+                        <p id="business-question" style="text-align:start; color:rgb(125, 139, 244); font-size: 12px;">Question: {{business_question}}?</p>
+                        <a class="mb-3" id="editBusinessQuestion" style="float: right;  color:#ba617f; font-size: 12px; font-style: normal; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#BusinessQUestionModal">Edit question</a>
+                      </div>
+                      <p id="copyBusiness-tooltip" style="display: none; background:none; text-align:start; color:rgb(245, 247, 247);">Copied!</p>
 
-                      <div class="input-group mt-3 mb-3 ">
-                        {% csrf_token %}
+                      <div class="input-group mt-3 mb-1 ">
                         <input type="text" class="form-control " style="font-size: 14px; border-style:solid; border-color: black; background: black; color: #ba617f ;" id="linkBusiness" value={{business_url}} disabled readonly>
                         <button class="btn btn-outline-secondary" type="button" id="linkCopyBusiness">Copy</button>
                       </div>
+
                     </div>
                   </div>
-                  <div class="col-lg-4 align-self-center">
+                  <div class="col-lg-4 align-self-center" style="margin-top: 30px;">
                     <ul>
                       <li>Feedback Statistics <span></span></li>
                       <li>Personal <span>{{personal |intcomma}}</span></li>
@@ -125,13 +184,13 @@
 
           <!-- ***** Responses Start ***** -->
           <div class="gaming-library profile-library">
-            
+
             <div class="col-lg-12">
               <div class="heading-section">
                 <h4><em>Find Your Responses</em> Below</h4>
               </div>
 
-              {% if responses %}        
+              {% if responses %}
               {% for response in responses %}
               <div class="col-lg-12">
                 <div class="item">
@@ -158,6 +217,6 @@
       </div>
     </div>
   </div>
-  
+
 
 {% endblock %}
